@@ -17,7 +17,7 @@ call plug#end()
 """"""""""""""""""""
 set termguicolors
 set background=dark
-colorscheme ayu
+colorscheme gruvbox
 
 " Indentation Options
 set tabstop=4 softtabstop=4
@@ -127,8 +127,8 @@ nnoremap <leader><F1> :!start *.pdf<Cr>
 nnoremap <leader>" i{\glqq \grqq}<Esc>5hi
 
 " Section headings
-inoremap <leader><F2> <ESC>0i\chapter{<++>}<CR><++><ESC>k0
-inoremap <leader><F3> <ESC>0i\section{<++>}<CR><++><ESC>k0
-inoremap <leader><F4> <ESC>0i\subsection{<++>}<CR><++><ESC>k0
+inoremap <F2> <ESC>0i\chapter{<++>}<CR><++><ESC>k0
+inoremap <F3> <ESC>0i\section{<++>}<CR><++><ESC>k0
+inoremap <F4> <ESC>0i\subsection{<++>}<CR><++><ESC>k0
 
 
