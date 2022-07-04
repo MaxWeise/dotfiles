@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'Badacadabra/vim-archery'
 Plug 'https://github.com/ayu-theme/ayu-vim'
+Plug 'https://github.com/preservim/nerdtree'
 call plug#end()
 
 
@@ -73,11 +74,27 @@ set statusline+=\ [%n]
 set statusline+=\ 
 
 
+"""""""""""""""""""""
+" NERDTree Settings "
+"""""""""""""""""""""
+" Start NERDTree. If a file is specified, move the cursor to its window.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+" Close the tab if NERDTree is the only window remaining in it.
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+
 """"""""""
 " Remaps "
 """"""""""
 " Leader Key
 let mapleader = " "
+
+" NERDTree utils
+nnoremap <leader>n :NERDTreeFocus<CR>
 
 
 " === General Remaps ===
@@ -94,41 +111,21 @@ vnoremap J :m '>+1<Cr>gv=gv
 vnoremap K :m '<-2<Cr>gv=gv
 
 " Spellckecking using F Keys
-map <F7> :set nospell <return>
-map <F8> :setlocal spell spelllang=de <return>
-map <F9> :setlocal spell spelllang=en <return>
+map <F10> :set nospell <return>
+map <F11> :setlocal spell spelllang=de <return>
+map <F12> :setlocal spell spelllang=en <return>
 
 " Open terminal on the right | below
 nnoremap <leader>vt :vert term<Cr>
 nnoremap <leader>tt :term<Cr>
 
 " Disable search highlighting
-nnoremap <leader>n :noh<Cr>
+" nnoremap <leader>n :noh<Cr>
 
 " Open file explorer in the current root
 nnoremap <leader>e :!explorer .<CR><CR>
 
 " map :W to :w
 cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
-
-
-" === LaTeX specific remaps ===
-" Compiling
-nnoremap <C-Cr> :w \| !pdflatex *.tex<Cr><Cr>
-nnoremap <C-b>  :!biber *.bcf<Cr>
-
-" Navigation
-nnoremap <leader><Space> /<++><Cr>v3lx:noh<Cr>i
-
-" Open pdf-file
-nnoremap <leader><F1> :!start *.pdf<Cr>
-
-" Quotation marks
-nnoremap <leader>" i{\glqq \grqq}<Esc>5hi
-
-" Section headings
-inoremap <F2> <ESC>0i\chapter{<++>}<CR><++><ESC>k0
-inoremap <F3> <ESC>0i\section{<++>}<CR><++><ESC>k0
-inoremap <F4> <ESC>0i\subsection{<++>}<CR><++><ESC>k0
 
 
